@@ -71,7 +71,7 @@ button{font:inherit}
     repeating-linear-gradient(180deg,transparent 0 43px,#8a6f4a17 43px 44px);
   background-position:0 0,0 0,0 0,0 0,0 0,0 118px;
   border-radius:3px 10px 10px 3px;box-shadow:0 10px 30px #0004,inset 0 0 60px #0000000a;
-  transform-origin:left center;transition:transform .72s cubic-bezier(.65,.05,.25,1);
+  transform-origin:left center;
   backface-visibility:hidden;display:none;overflow:hidden;
 }
 .page:not(.cover):not(.final-page):not(.photo-page) .page-content:before{
@@ -80,6 +80,21 @@ button{font:inherit}
 }
 .page.active{display:block;z-index:10}
 .page.flipped{display:block;transform:rotateY(-180deg);z-index:2}
+
+.page.reveal{display:block;transform:rotateY(0deg);z-index:15}
+
+@keyframes turnFwd{
+  0%{transform:rotateY(0deg) scaleX(1);box-shadow:0 10px 30px #0004;filter:brightness(1)}
+  48%{transform:rotateY(-92deg) scaleX(.88);box-shadow:30px 22px 54px #0008,-20px 0 46px #00000059 inset;filter:brightness(.88)}
+  100%{transform:rotateY(-180deg) scaleX(1);box-shadow:0 10px 30px #0004;filter:brightness(1)}
+}
+@keyframes turnBack{
+  0%{transform:rotateY(-180deg) scaleX(1);box-shadow:0 10px 30px #0004;filter:brightness(1)}
+  52%{transform:rotateY(-88deg) scaleX(.88);box-shadow:-30px 22px 54px #0008,20px 0 46px #00000059 inset;filter:brightness(.88)}
+  100%{transform:rotateY(0deg) scaleX(1);box-shadow:0 10px 30px #0004;filter:brightness(1)}
+}
+.page.turn-fwd{display:block;z-index:30;animation:turnFwd .85s cubic-bezier(.45,.06,.16,1) forwards}
+.page.turn-back{display:block;z-index:30;animation:turnBack .85s cubic-bezier(.45,.06,.16,1) forwards}
 .page:before{content:"";position:absolute;left:0;top:0;bottom:0;width:38px;background:linear-gradient(90deg,#00000014,transparent);pointer-events:none}
 .page:after{content:"";position:absolute;right:0;top:0;bottom:0;width:22px;background:linear-gradient(to left,#0001,transparent);pointer-events:none}
 .page-num{position:absolute;left:0;right:0;bottom:16px;text-align:center;font:12px system-ui,sans-serif;letter-spacing:.06em;color:#a3907e;z-index:1}
