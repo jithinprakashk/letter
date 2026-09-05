@@ -6,5 +6,8 @@ book.addEventListener("touchstart",e=>{startX=e.changedTouches[0].screenX;startY
 book.addEventListener("touchend",e=>{let dx=e.changedTouches[0].screenX-startX,dy=e.changedTouches[0].screenY-startY;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)(dx<0?nextPage:prevPage)()},{passive:true});
 document.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){nextPage()}if(e.key==="ArrowLeft"){prevPage()}});
 const bgMusic=new Audio("music.m4a");bgMusic.loop=true;bgMusic.volume=.55;
-document.getElementById("musicBtn").onclick=()=>{if(bgMusic.paused){bgMusic.play().catch(()=>{});musicBtn.textContent="♫"}else{bgMusic.pause();musicBtn.textContent="♪"}};
+function startMusic(){if(bgMusic.paused){bgMusic.play().then(()=>{musicBtn.textContent="♫"}).catch(()=>{})}}
+document.getElementById("musicBtn").onclick=()=>{if(bgMusic.paused){startMusic()}else{bgMusic.pause();musicBtn.textContent="♪"}};
+document.addEventListener("click",startMusic,{once:true});
+document.addEventListener("touchend",startMusic,{once:true});
 render();
